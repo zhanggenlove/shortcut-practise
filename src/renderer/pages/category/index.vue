@@ -5,7 +5,7 @@
             <span class="category-header-title">Sketch</span>
         </header>
         <div class="category">
-            <div class="category-title">{{ categoryList[0].category }}</div>
+            <div class="category-title">快捷键</div>
             <div class="table-wrap">
                 <el-table row-class-name="my-table" :data="categoryList[0].list" :show-header="false">
                     <el-table-column prop="title" label="快捷键名称">
@@ -14,7 +14,7 @@
                         <template>
                             <div class="progress-wrap">
                                 <span class="progress-text">2/12</span>
-                                <el-progress type="circle" :width="16" :stroke-width="2" :percentage="10" color="#07c160"
+                                <el-progress class="progress" type="circle" :width="16" :stroke-width="2"  :percentage="10" color="#07c160"
                                 :show-text="false"></el-progress>
                                 </div>
                         </template>
@@ -38,7 +38,7 @@ export default {
                 {
                     category: 'Popular shortcuts1',
                     list: [{
-                        title: "在上面插入行",
+                        title: "Popular shortcuts",
                         pass: false,
                         shortCut: [
                             { keyCode: 17, key: "Ctrl", text: 'Ctrl', status: 2 },
@@ -46,7 +46,7 @@ export default {
                             { keyCode: 13, key: " ↩", text: 'Enter', status: 2 },
                         ],
                     }, {
-                        title: "在上面插入行",
+                        title: "Work with documents",
                         pass: false,
                         shortCut: [
                             { keyCode: 17, key: "Ctrl", text: 'Ctrl', status: 2 },
@@ -127,7 +127,8 @@ export default {
 }
 
 .category-title {
-    margin-bottom: 5px;
+    margin-bottom: 10px;
+    margin-left: 6px;
     font-size: 14px;
     color: #fff;
 }
@@ -155,6 +156,11 @@ export default {
 }
 .progress-text {
     margin-right: 6px;
+    color: #999;
+}
+
+.arrow-column {
+    color: #999;
 }
 .arrow-column .cell {
     padding: 0 !important;

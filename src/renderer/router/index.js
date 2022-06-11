@@ -5,13 +5,13 @@ Vue.use(Router)
 
 export default new Router({
   routes: [
-    // {
-    //   path: '/',
-    //   name: 'app',
-    //   component: require('@/pages/app').default
-    // },
     {
       path: '/',
+      name: 'app',
+      component: require('@/pages/app').default
+    },
+    {
+      path: '/:app',
       name: 'category',
       component: require('@/pages/category').default
     },

@@ -7,7 +7,7 @@
         <div class="category">
             <div class="category-title">快捷键</div>
             <div class="table-wrap">
-                <el-table row-class-name="my-table" :data="categoryList[0].list" :show-header="false">
+                <el-table row-class-name="my-table" :data="categoryList[0].list" :show-header="false" @row-click="rowClick">
                     <el-table-column prop="title" label="快捷键名称">
                     </el-table-column>
                     <el-table-column label="进度" width="120" align="center">
@@ -34,6 +34,7 @@
 export default {
     data() {
         return {
+            app: '',
             categoryList: [
                 {
                     category: 'Popular shortcuts1',
@@ -95,7 +96,13 @@ export default {
         }
     },
     created() {
-        console.log(this.$route.params.app)
+        this.app = this.$route.params.app
+        console.log(app)
+    },
+    methods: {
+        rowClick() {
+            this.$router.push(`/${this.app}/popular`)
+        }
     }
 }
 </script>

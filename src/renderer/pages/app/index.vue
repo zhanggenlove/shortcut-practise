@@ -20,6 +20,7 @@
 </template>
 
 <script>
+import dev  from '@/pages/shortcuts'
 export default {
     data() {
         return {
@@ -56,6 +57,9 @@ export default {
 
             ]
         }
+    },
+    created() {
+        console.log(dev)
     },
     methods:{
         clickForApp(app) {

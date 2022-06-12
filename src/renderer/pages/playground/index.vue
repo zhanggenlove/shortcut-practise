@@ -2,22 +2,22 @@
     <div class="container">
         <header class="header">
             <el-breadcrumb separator="/">
-                <el-breadcrumb-item>首页</el-breadcrumb-item>
-                <el-breadcrumb-item>活动管理</el-breadcrumb-item>
-                <el-breadcrumb-item>活动列表</el-breadcrumb-item>
+                <el-breadcrumb-item :to="{ path: '/' }">应用</el-breadcrumb-item>
+                <el-breadcrumb-item><a href="javascript:void(0)" @click="back">{{ appTitle }}</a></el-breadcrumb-item>
+                <el-breadcrumb-item>{{ categoryTitle }}</el-breadcrumb-item>
             </el-breadcrumb>
-            <img class="app-logo" src="@/assets/logo-githubdesktop.png" />
+            <img class="app-logo" :src="logo" />
         </header>
         <div class="content">
             <div class="shortcut-title">{{ shortCutList[index].title }}</div>
             <div class="playground">
-                <keyboard v-for="(item, i) of shortCutList[index].shortCut" :key="i" :code="item.key" :text="item.text"
+                <keyboard v-for="(item, i) of shortCutList[index].windows" :key="i" :code="item.key" :text="item.text"
                     :isShowHlight="item.status != 2" :correct="item.status == 1" :isTips="false">
                 </keyboard>
-                <div v-if="shortCutList[index].shortCut.map(e => e.status).includes(0)" class="space"></div>
+                <div v-if="shortCutList[index].windows.map(e => e.status).includes(0)" class="space"></div>
                 <!-- 输入错误时候的提示参照 -->
-                <template v-if="shortCutList[index].shortCut.map(e => e.status).includes(0)">
-                    <keyboard v-for="item of shortCutList[index].shortCut" :key="item.key" :code="item.key"
+                <template v-if="shortCutList[index].windows.map(e => e.status).includes(0)">
+                    <keyboard v-for="item of shortCutList[index].windows" :key="item.key" :code="item.key"
                         :text="item.text" :isShowHlight="false" isTips>
                     </keyboard>
                 </template>
@@ -36,28 +36,20 @@ export default {
     components: { Keyboard },
     data() {
         return {
+            appTitle: '',
+            categoryTitle: '',
+            logo: '',
             index: 0,
             keyupCodeList: [],//监听并写入按下的键
-            shortCutList: [
-                {
-                    title: "在上面插入行",
-                    pass: false,
-                    shortCut: [
-                        { keyCode: 17, key: "Ctrl", text: 'Ctrl', status: 2 },
-                        { keyCode: 16, key: "⇧", text: 'Shift', status: 2 },
-                        { keyCode: 13, key: " ↩", text: 'Enter', status: 2 },
-                    ],
-                }, {
-                    title: "删除（删除）线",
-                    pass: false,
-                    shortCut: [
-                        { keyCode: 17, key: "Ctrl", text: 'Ctrl', status: 2 },
-                        { keyCode: 16, key: "⇧", text: 'Shift', status: 2 },
-                        { keyCode: 75, key: "K", text: 'K', status: 2 },
-                    ],
-                }
-            ],
+            shortCutList: [],
         };
+    },
+    created() {
+        const { shortCuts, categoryTitle, appTitle, logo } = this.$route.params
+        this.shortCutList = shortCuts
+        this.logo = logo
+        this.categoryTitle = categoryTitle
+        this.appTitle = appTitle
     },
     mounted() {
         document.onkeydown = (e) => {
@@ -68,12 +60,12 @@ export default {
             const hasKeyUpList = this.keyupCodeList
             const index = this.index
             var shortCutList = this.shortCutList
-            const shortCut = shortCutList[index].shortCut
+            const shortCut = shortCutList[index].windows
             const keyNum = shortCut.length
             const shortCutKeyCode = shortCut.map(e => e.keyCode)
             if (shortCutKeyCode.includes(key)) {//命中
                 const i = shortCut.findIndex(f => f.keyCode == key)
-                shortCutList[index].shortCut[i].status = 1
+                shortCutList[index].windows[i].status = 1
                 if (hasKeyUpList.length >= keyNum) {//下一个 todo 判断是否越界
                     shortCutList[index].pass = true
                     //初始化数据
@@ -86,12 +78,26 @@ export default {
                 //1.提示错误
                 const position = hasKeyUpList.length - 1
                 for (let i = position; i < keyNum; i++) {
-                    shortCutList[index].shortCut[i].status = 0
+                    shortCutList[index].windows[i].status = 0
                 }
                 //2.初始数据
                 this.keyupCodeList.length = 0
             }
             this.shortCutList = [...shortCutList]
+        }
+    },
+    destroyed() {
+        console.log(999)
+        this.appTitle = ''
+        this.categoryTitle = ''
+        this.logo = ''
+        this.index = 0
+        this.keyupCodeList = []//监听并写入按下的键
+        this.shortCutList = []
+    },
+    methods: {
+        back() {
+            this.$router.back()
         }
     }
 }

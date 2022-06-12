@@ -1,12 +1,20 @@
+<!--
+ * @Author: zhanggen 1519149300@qq.com
+ * @Date: 2022-06-11 12:12:12
+ * @LastEditors: zhanggen 1519149300@qq.com
+ * @LastEditTime: 2022-06-12 16:36:19
+ * @FilePath: \shortcut-practise\src\renderer\pages\app\index.vue
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+-->
 <template>
     <div class="app">
-        <div class="category" v-for="(item,index) of appList" :key="index">
-            <div class="category-title">{{item.type}}</div>
+        <div class="category" v-for="(item, index) of appList" :key="index">
+            <div class="category-title">{{ item.type }}</div>
             <div class="app-list">
-                <div class="app-item" v-for="(app,i) of item.app" :key="i" @click="clickForApp(app)">
+                <div class="app-item" v-for="(app, i) of item.app" :key="i" @click="clickForApp(app)">
                     <img class="app-item-logo" :src="app.logo">
                     <div class="app-item-desc">
-                        <div class="app-item-desc-name">{{app.title}}</div>
+                        <div class="app-item-desc-name">{{ app.title }}</div>
                         <div class="app-item-desc-prog-wrap">
                             <div class="app-item-desc-tips">90快捷键</div>
                             <el-progress type="circle" :width="16" :stroke-width="2" :percentage="10" color="#07c160"
@@ -20,50 +28,26 @@
 </template>
 
 <script>
-import dev  from '@/pages/shortcuts'
+import storejs from 'storejs'
+import appList from '@/pages/shortcuts'
 export default {
     data() {
         return {
-            appList: [
-                {
-                    type: '开发',
-                    app: [
-                        {
-                            title: 'VS Code',
-                            file: 'vscode',
-                            logo: require('@/assets/logo-visualstudiocode.png')
-                        },
-                        {
-                            title: 'Android Studio',
-                            file: 'androidstudio',
-                            logo: require('@/assets/logo-androidstudio.png')
-                        },
-                        {
-                            title: 'Xcode',
-                            file: 'xcode',
-                            logo: require('@/assets/logo-xcode.png')
-                        }
-                    ]
-                }, {
-                    type: '设计',
-                    app: [
-                        {
-                            title: 'Adobe IIIustrator',
-                            file: 'adobeiiiustrator',
-                            logo: require('@/assets/logo-adobeillustrator.png')
-                        },
-                    ]
-                }
-
-            ]
+            appList
         }
     },
     created() {
-        console.log(dev)
+        console.log(appList)
     },
-    methods:{
+    methods: {
         clickForApp(app) {
-            this.$router.push(`/${app.title}`)
+            storejs.set('app',app)
+            this.$router.push({
+                name: 'category',
+                params: {
+                    app
+                }
+            })
         }
     }
 }
@@ -72,21 +56,26 @@ export default {
 <style scoped>
 .app {
     height: 100vh;
+    box-sizing: border-box;
     overflow-y: scroll;
     padding: 0 16px;
     background-color: #000;
 }
+
 .category {
     padding: 12px 0;
 }
+
 .category-title {
     margin-bottom: 5px;
     font-size: 14px;
     color: #fff;
 }
+
 .app-list {
     display: inline;
 }
+
 .app-item {
     display: inline-block;
     margin: 8px 16px 8px 0;

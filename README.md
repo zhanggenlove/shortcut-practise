@@ -1,6 +1,7 @@
 # shortcuts
 
 > an app for shortcuts practise
+> C出于兴趣爱好，本来想开发一个用来练习许多常用APP的快捷键的。但是又好像觉得没什么意义。唔 ，就这样吧。。。
 
 #### Build Setup
 

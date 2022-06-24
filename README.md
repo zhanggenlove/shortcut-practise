@@ -5,13 +5,15 @@
 
 >截图
 >
->![1](https://github.com/zhanggenlove/shortcut-practise/blob/master/6a4702a4d5e367d0a64e15be7f2b0ff.png)
->
 >![2](https://github.com/zhanggenlove/shortcut-practise/blob/master/6a3808444e2b8f95d91694581d5d425.png)
+
+>![](https://github.com/zhanggenlove/shortcut-practise/blob/master/fe848ec809154c8c1813a9929bf4388.png)
+
+>![1](https://github.com/zhanggenlove/shortcut-practise/blob/master/6a4702a4d5e367d0a64e15be7f2b0ff.png)
 >
 >![](https://github.com/zhanggenlove/shortcut-practise/blob/master/72f405be4275c4eafe9967e6a8db4d9.png)
 >
->![](https://github.com/zhanggenlove/shortcut-practise/blob/master/fe848ec809154c8c1813a9929bf4388.png)
+
 
 #### Build Setup
 
